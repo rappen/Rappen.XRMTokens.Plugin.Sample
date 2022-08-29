@@ -1,13 +1,20 @@
-﻿using Microsoft.Xrm.Sdk;
-using System;
+﻿using Jonas;
+using Rappen.XTB.Helpers;
 
 namespace Rappen.XRMTokens.Plugin
 {
-    public class AccountXRMTokens : IPlugin
+    public class AccountXRMTokens : JonasPluginBase
     {
-        public void Execute(IServiceProvider serviceProvider)
+        public override void Execute(JonasPluginBag bag)
         {
-            throw new NotImplementedException();
+            var compose = bag.TargetEntity.GetAttributeValue<string>("jr_compose");
+            var result = bag.TargetEntity.Substitute(bag.Service, compose);
+            bag.TargetEntity["jr_result"] = result;
         }
+    }
+
+    public class Sss : JonasCodeActivityBase
+    {
+
     }
 }
